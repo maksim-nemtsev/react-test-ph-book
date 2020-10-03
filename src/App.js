@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PhoneBookForm from './components/PhoneBookForm';
 import PhoneBookList from './components/PhoneBookList';
-import Search from './components/Search';
 
 class App extends Component {
   id = 2;
@@ -18,7 +17,15 @@ class App extends Component {
         phone: '333 4 4 44',
       },
     ],
+    keyword: '',
   };
+
+  handleChange = e => {
+    this.setState({
+      keyword: e.target.value
+    });
+  };
+
   handleCreate = (data) => {
     const { dataContacts } = this.state;
     this.setState({
@@ -31,13 +38,31 @@ class App extends Component {
       dataContacts: dataContacts.filter((info) => info.id !== id),
     });
   };
-  render() {
+
+  handleEdit = (id, data) => {
     const { dataContacts } = this.state;
+    this.setState({
+      dataContacts: dataContacts.map((e) => {
+        if (id === e.id) {
+          return { ...e, ...data };
+        }
+        return e;
+      })
+    })
+  }
+
+  render() {
+    const { dataContacts, keyword } = this.state;
+    const filteredList = dataContacts.filter(info => info.name.indexOf(keyword) !== -1)
     return (
       <div>
         <PhoneBookForm onCreate={this.handleCreate} />
-        <Search />
-        <PhoneBookList data={dataContacts} onRemove={this.handleRemove} />
+        <div>
+          <input onChange={this.handleChange}
+            value={keyword}
+            placeholder='найти контакт' />
+        </div>
+        <PhoneBookList data={filteredList} onRemove={this.handleRemove} onEdit={this.handleEdit} />
       </div>
     );
   }

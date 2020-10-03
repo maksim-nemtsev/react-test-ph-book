@@ -6,10 +6,14 @@ class PhoneBookList extends Component {
     data: [],
   };
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.data !== this.props.data;
+  }
+
   render() {
-    const { data, onRemove } = this.props;
-    const list = data.map(info => (
-      <PhoneBook key={info.id} info={info} onRemove={onRemove} />
+    const { data, onRemove, onEdit } = this.props;
+    const list = data.map(contactInfo => (
+      <PhoneBook key={contactInfo.id} contactInfo={contactInfo} onRemove={onRemove} onEdit={onEdit} />
     ));
 
     return <div>
