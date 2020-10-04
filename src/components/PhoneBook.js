@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import '../index.css';
+import { Button } from 'react-bootstrap';
 
 class PhoneBook extends Component {
   static defaultProps = {
@@ -8,25 +10,25 @@ class PhoneBook extends Component {
       email: 'example.example.com',
       id: 0,
     },
-
-  }; state = {
+  };
+  state = {
     editing: false,
     name: '',
     phone: '',
-    email: ''
-  }
+    email: '',
+  };
 
   handleToggleEditing = () => {
     const { editing } = this.state;
-    this.setState({ editing: !editing })
-  }
+    this.setState({ editing: !editing });
+  };
 
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({
-      [name]: value
-    })
-  }
+      [name]: value,
+    });
+  };
 
   handleRemove = () => {
     const { contactInfo, onRemove } = this.props;
@@ -39,8 +41,8 @@ class PhoneBook extends Component {
       this.setState({
         name: contactInfo.name,
         phone: contactInfo.phone,
-        email: contactInfo.email
-      })
+        email: contactInfo.email,
+      });
     }
 
     if (prevState.editing && !this.state.editing) {
@@ -48,12 +50,16 @@ class PhoneBook extends Component {
         name: this.state.name,
         phone: this.state.phone,
         email: this.state.email,
-      })
+      });
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (!this.state.editing && !nextState.editing && nextProps.contactInfo === this.props.contactInfo) {
+    if (
+      !this.state.editing &&
+      !nextState.editing &&
+      nextProps.contactInfo === this.props.contactInfo
+    ) {
       return false;
     }
     return true;
@@ -63,70 +69,56 @@ class PhoneBook extends Component {
     const { contactInfo, onEdit } = this.props;
 
     onEdit(contactInfo.id);
-    this.handleToggleEditing()
-  }
+    this.handleToggleEditing();
+  };
 
   render() {
-    const style = {
-      width: '250px',
-      border: '1.5px solid black',
-      borderTop: '0px',
-      borderRight: '0px',
-      padding: '10px',
-      margin: '11px',
-    };
     const { editing } = this.state;
     if (editing) {
       return (
-        <div style={style}>
+        <div className='phoneBook'>
           <div>
             <input
               onChange={this.handleChange}
               value={this.state.name}
               name="name"
-              placeholder='Имя'
+              placeholder="Имя"
             />
           </div>
           <div>
             <input
               onChange={this.handleChange}
-              name='phone'
+              name="phone"
               value={this.state.phone}
-              placeholder='Телефон'
+              placeholder="Телефон"
             />
           </div>
           <div>
             <input
               onChange={this.handleChange}
-              name='email'
+              name="email"
               value={this.state.email}
-              placeholder='Почта'
+              placeholder="Почта"
             />
           </div>
-          <button onClick={this.handleEdit}>Сохранить</button>
-          <button onClick={this.handleRemove}>Удалить</button>
+          <Button variant="success" className='btn-edit' onClick={this.handleEdit}>Сохранить</Button>
+          <Button variant="danger" onClick={this.handleRemove}>Удалить</Button>
         </div>
       );
     }
 
     const { name, phone, email } = this.props.contactInfo;
     return (
-      <div style={style}>
+      <div className='phoneBook'>
         <div>
-          <b>
-            {name}
-          </b>
-          <div>
-            {phone}
-          </div>
-          <div>
-            {email}
-          </div>
-          <button onClick={this.handleToggleEditing} >Изменить</button>
-          <button onClick={this.handleRemove} >Удалить</button>
+          <b>{name}</b>
+          <div>{phone}</div>
+          <div>{email}</div>
+          <Button variant="secondary" className='btn-edit' onClick={this.handleToggleEditing}>Изменить</Button>
+          <Button variant="danger" onClick={this.handleRemove}>Удалить</Button>
         </div>
       </div>
-    )
+    );
   }
 }
 export default PhoneBook;

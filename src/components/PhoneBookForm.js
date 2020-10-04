@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 
 class PhoneForm extends Component {
   state = {
@@ -21,18 +22,12 @@ class PhoneForm extends Component {
     });
   };
   render() {
-    const style = {
-      display: 'flex',
-      flexDirection: 'column',
-      padding: '5px',
-      margin: '5px 0',
-    };
     return (
-      <div>
-        <h3>Добавить новый контакт</h3>
-        <form style={style} onSubmit={this.handleSubmit}>
+      <div className="phoneBookForm">
+        <h3 className="phoneBookForm__title">Добавить контакт</h3>
+        <form className='form'  onSubmit={this.handleSubmit}>
           <input
-            style={style}
+            className="form__input"            
             type="text"
             placeholder="Имя"
             value={this.state.name}
@@ -40,7 +35,7 @@ class PhoneForm extends Component {
             name="name"
           />
           <input
-            style={style}
+            className="form__input"           
             type="tel"
             placeholder="Телефон"
             value={this.state.phone}
@@ -48,15 +43,17 @@ class PhoneForm extends Component {
             name="phone"
           />
           <input
-            style={style}
+            className="form__input"            
             type="email"
             placeholder="Почта"
             value={this.state.email}
             onChange={this.handleChange}
             name="email"
           />
-          <button type="submit">Добавить</button>
+
+          <Button type="submit">Добавить</Button>
         </form>
+        <br/>
       </div>
     );
   }

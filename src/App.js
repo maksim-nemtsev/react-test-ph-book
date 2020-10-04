@@ -56,7 +56,10 @@ class App extends Component {
     const filteredList = dataContacts.filter(info => info.name.indexOf(keyword) !== -1)
     return (
       <div>
+        <h1>Телефонная книга</h1>
+        <br/>
         <PhoneBookForm onCreate={this.handleCreate} />
+        <h3>Поиск контакта</h3>
         <div>
           <input onChange={this.handleChange}
             value={keyword}

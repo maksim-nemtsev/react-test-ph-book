@@ -17,7 +17,8 @@ class PhoneBookList extends Component {
     ));
 
     return <div>
-      <h3>Лист контактов</h3>
+      <br/>
+      <h4>Лист контактов</h4>
       {list}</div>;
   }
 }
