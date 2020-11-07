@@ -1,5 +1,5 @@
 ## Тестовое задание: Телефонная книга.
-### Демонстрация https://ecstatic-jang-ff1f4a.netlify.app/
+### Демонстрация https://phone-book-state.netlify.app/
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
